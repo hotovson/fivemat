@@ -1,6 +1,15 @@
 module Fivemat
   class RSpec3
     include ElapsedTime
+    ::RSpec::Core::Formatters.register self,
+                                       :example_passed,
+                                       :example_pending,
+                                       :example_failed,
+                                       :example_group_started,
+                                       :example_group_finished,
+                                       :dump_summary,
+                                       :seed,
+                                       :message
 
     # See fivemat.rb for formatter registration.
     attr_reader :output, :failed_notifications

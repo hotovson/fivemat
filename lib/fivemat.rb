@@ -16,20 +16,6 @@ module Fivemat
   end
   module_function :rspec3?
 
-  if rspec3?
-    # This needs to be run before `.new` is called, so putting it inside the
-    # autoloaded rspec3 file will not work.
-    ::RSpec::Core::Formatters.register self,
-      :example_passed,
-      :example_pending,
-      :example_failed,
-      :example_group_started,
-      :example_group_finished,
-      :dump_summary,
-      :seed,
-      :message
-  end
-
   def self.new(*args)
     case args.size
     when 0 then MiniTest::Unit
