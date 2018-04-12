@@ -1,6 +1,6 @@
 require 'spec/runner/formatter/progress_bar_formatter'
 
-module Fivemat
+module Formatters
   class Spec < ::Spec::Runner::Formatter::ProgressBarFormatter
     include ElapsedTime
 

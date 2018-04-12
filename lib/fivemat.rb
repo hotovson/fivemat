@@ -1,38 +1,14 @@
-require 'fivemat/elapsed_time'
-
-module Fivemat
-  autoload :Cucumber, 'fivemat/cucumber'
-  autoload :MiniTest, 'fivemat/minitest/unit'
-  autoload :RSpec, 'fivemat/rspec'
-  autoload :RSpec3, 'fivemat/rspec3'
-  autoload :Spec, 'fivemat/spec'
-
-  # Cucumber 2 detects the formatter API based on initialize arity
-  def initialize(runtime, path_or_io, options)
+rspec_version = (::RSpec::Core::Version::STRING if Object.const_defined?('RSpec::Core::Version')) || ''
+if rspec_version >= '3'
+  require 'formatters/rspec3'
+  class Fivemat
+    include Formatters::RSpec3
   end
+end
 
-  def rspec3?
-    defined?(::RSpec::Core) && ::RSpec::Core::Version::STRING >= '3.0.0'
-  end
-  module_function :rspec3?
-
-  def self.new(*args)
-    case args.size
-    when 0 then MiniTest::Unit
-    when 1 then
-      if rspec3?
-        RSpec3
-      else
-        RSpec
-      end
-    when 2 then Spec
-    when 3
-      if ::Cucumber::VERSION >= '3'
-        abort "Fivemat does not yet support Cucumber 3"
-      end
-      Cucumber
-    else
-      raise ArgumentError
-    end.new(*args)
-  end
+cucumber_version = (::Cucumber::VERSION if Object.const_defined?('Cucumber')) || ''
+if cucumber_version >= '2' && cucumber_version < '3'
+  require 'formatters/cucumber2'
+  Object.send(:remove_const, 'Fivemat') if Object.const_defined?('Fivemat')
+  Fivemat = Formatters::Cucumber2
 end

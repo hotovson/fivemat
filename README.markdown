@@ -46,7 +46,7 @@ Enable profiling by setting the `FIVEMAT_PROFILE` variable in the environment:
 
 ## Usage
 
-Start by adding `gem 'fivemat'` to your `Gemfile`.
+Start by adding `gem 'fivemat', require: false` to your `Gemfile`.
 
 ### MiniTest
 

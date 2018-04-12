@@ -1,6 +1,6 @@
 require 'rspec/core/formatters/progress_formatter'
 
-module Fivemat
+module Formatters
   class RSpec < ::RSpec::Core::Formatters::ProgressFormatter
     include ElapsedTime
 

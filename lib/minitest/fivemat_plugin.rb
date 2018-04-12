@@ -1,4 +1,4 @@
-require 'fivemat/elapsed_time'
+require 'formatters/elapsed_time'
 
 module Minitest
   class FivematReporter < Reporter

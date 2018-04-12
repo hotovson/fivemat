@@ -6,4 +6,3 @@ module ElapsedTime
     end
   end
 end
-

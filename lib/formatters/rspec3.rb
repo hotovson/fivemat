@@ -1,17 +1,21 @@
-module Fivemat
-  class RSpec3
-    include ElapsedTime
-    ::RSpec::Core::Formatters.register self,
-                                       :example_passed,
-                                       :example_pending,
-                                       :example_failed,
-                                       :example_group_started,
-                                       :example_group_finished,
-                                       :dump_summary,
-                                       :seed,
-                                       :message
+require_relative 'elapsed_time'
 
-    # See fivemat.rb for formatter registration.
+module Formatters
+  module RSpec3
+    include ElapsedTime
+
+    def self.included(base)
+      ::RSpec::Core::Formatters.register base,
+                                         :example_passed,
+                                         :example_pending,
+                                         :example_failed,
+                                         :example_group_started,
+                                         :example_group_finished,
+                                         :dump_summary,
+                                         :seed,
+                                         :message
+    end
+
     attr_reader :output, :failed_notifications
 
     def initialize(output)
@@ -22,17 +26,17 @@ module Fivemat
     end
 
     def color
-      unless defined?(::RSpec::Core::Formatters::ConsoleCodes)
+      unless Object.const_defined?('RSpec::Core::Formatters::ConsoleCodes')
         require 'rspec/core/formatters/console_codes'
       end
       ::RSpec::Core::Formatters::ConsoleCodes
     end
 
-    def example_passed(notification)
+    def example_passed(_notification)
       output.print color.wrap('.', :success)
     end
 
-    def example_pending(notification)
+    def example_pending(_notification)
       output.print color.wrap('*', :pending)
     end
 
@@ -50,7 +54,7 @@ module Fivemat
       @group_level += 1
     end
 
-    def example_group_finished(event)
+    def example_group_finished(_event)
       @group_level -= 1
 
       if @group_level.zero?

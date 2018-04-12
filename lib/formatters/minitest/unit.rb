@@ -1,7 +1,7 @@
 require 'minitest/unit'
-require 'fivemat/elapsed_time'
+require 'formatters/elapsed_time'
 
-module Fivemat
+module Formatters
   module MiniTest
     class Unit < ::MiniTest::Unit
       include ElapsedTime
