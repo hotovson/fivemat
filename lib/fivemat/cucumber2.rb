@@ -1,7 +1,7 @@
 require 'cucumber/formatter/progress'
 require_relative 'elapsed_time'
 
-module Formatters
+module Fivemat
   class Cucumber2 < ::Cucumber::Formatter::Progress
     include ElapsedTime
 

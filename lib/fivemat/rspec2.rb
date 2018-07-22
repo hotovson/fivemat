@@ -1,7 +1,7 @@
 require 'rspec/core/formatters/progress_formatter'
 
-module Formatters
-  class RSpec < ::RSpec::Core::Formatters::ProgressFormatter
+module Fivemat
+  class RSpec2 < ::RSpec::Core::Formatters::ProgressFormatter
     include ElapsedTime
 
     def initialize(*)

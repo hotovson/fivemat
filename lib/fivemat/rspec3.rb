@@ -1,20 +1,18 @@
 require_relative 'elapsed_time'
 
-module Formatters
-  module RSpec3
+module Fivemat
+  class Rspec3
     include ElapsedTime
 
-    def self.included(base)
-      ::RSpec::Core::Formatters.register base,
-                                         :example_passed,
-                                         :example_pending,
-                                         :example_failed,
-                                         :example_group_started,
-                                         :example_group_finished,
-                                         :dump_summary,
-                                         :seed,
-                                         :message
-    end
+    ::RSpec::Core::Formatters.register self,
+                                       :example_passed,
+                                       :example_pending,
+                                       :example_failed,
+                                       :example_group_started,
+                                       :example_group_finished,
+                                       :dump_summary,
+                                       :seed,
+                                       :message
 
     attr_reader :output, :failed_notifications
 
